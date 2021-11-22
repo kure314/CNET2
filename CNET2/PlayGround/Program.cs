@@ -13,10 +13,19 @@ PrintList(vysledek.ToList());
 bool isOnlyEvenNumber = numbers.All(x => x % 2 == 0);
 Console.WriteLine($"Jsou všechna čísla sudá? {isOnlyEvenNumber}");
 
+var slova = numbers.Select(x => strings[x]);
+
+PrintList(slova.ToList()); 
+
 foreach (var item in numbers)
 {
     Console.WriteLine(strings[item]);
 }
+
+/// <summary>
+/// /////////////////////////////////////////////////////////////////////////////////////////////////
+/// </summary>
+Console.WriteLine("Výsledek: " + strings.Select(x => x.Length).Sum());
 
 
 
