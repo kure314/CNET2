@@ -43,8 +43,22 @@ var res = strings.Select(slovo =>(slovo.ToUpper(), slovo.ToLower()));
 var agg = string.Join("", strings).GroupBy(x => x).Select(g => ( g.Key, Pocet: g.Count(), Znaky: g.Count() )).OrderByDescending(g => g.Pocet);
 //PrintListGenericky<(char, int, int)>(agg);
 
-    
-    Debug.Print("ff");
+string kniha1 = "alice.txt";
+
+Dictionary<string, int> kniha = AnalyzatorTextu.AnalyzovatText(kniha1);
+
+Tisk(kniha1, kniha);
+
+void Tisk(string kniha1, Dictionary<string, int> kniha)
+{
+    Console.WriteLine($"KNIHA: {kniha}");
+    foreach (var item in kniha)
+    {
+        Console.WriteLine($"Slovo: {item.Key}, výskyt: {item.Value}");
+    }
+}
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
