@@ -50,10 +50,10 @@ string kniha3 = "rur.txt";
 Dictionary<string, int> kniha1Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
 Tisk(kniha1, kniha1Ana);
 
-Dictionary<string, int> kniha2Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
+Dictionary<string, int> kniha2Ana = AnalyzatorTextu.AnalyzovatText(kniha2);
 Tisk(kniha2, kniha2Ana);
 
-Dictionary<string, int> kniha3Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
+Dictionary<string, int> kniha3Ana = AnalyzatorTextu.AnalyzovatText(kniha3);
 Tisk(kniha3, kniha3Ana);
 
 void Tisk(string kniha1, Dictionary<string, int> kniha)
