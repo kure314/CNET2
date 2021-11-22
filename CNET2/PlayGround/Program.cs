@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Diagnostics;
+using PlayGround;
 
 Console.WriteLine("Hello, World!");
 var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
@@ -28,10 +29,31 @@ foreach (var item in numbers)
 Console.WriteLine("Výsledek: " + strings.Select(x => x.Length).Sum());
 
 
+// úkol č. 5 ------------------------- 555555555555555555555555555555555
+
+
+var listHodnotUpperLower = strings.Select(x => new UpperLowerString(x))
+                                    .Select(xy => $"upper: {xy.UpperCase}, lower: {xy.LowerCase}");
+
+var res = strings.Select(slovo =>(slovo.ToUpper(), slovo.ToLower()));
+
+PrintListGenericky<(string, string)>(res);
 
 static void PrintList(List<string> coVypsat)
 {
 
+    foreach (var item in coVypsat)
+    {
+        Console.WriteLine(item);
+    }
+}
+
+
+/// <summary>
+/// T - generická metoda
+/// </summary>
+static void PrintListGenericky<T>(IEnumerable<T> coVypsat)
+{
     foreach (var item in coVypsat)
     {
         Console.WriteLine(item);
