@@ -39,6 +39,14 @@ var res = strings.Select(slovo =>(slovo.ToUpper(), slovo.ToLower()));
 
 PrintListGenericky<(string, string)>(res);
 
+/// úkol č. 6 ------------------------- 666666666666666666666666666666666666
+var agg = string.Join("", strings).GroupBy(x => x).Select(g => ( g.Key, Pocet: g.Count(), Znaky: g.Count() )).OrderByDescending(g => g.Pocet);
+PrintListGenericky<(char, int, int)>(agg);
+
+    
+    Debug.Print("ff");
+
+
 static void PrintList(List<string> coVypsat)
 {
 
