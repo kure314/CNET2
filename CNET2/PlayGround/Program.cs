@@ -44,14 +44,21 @@ var agg = string.Join("", strings).GroupBy(x => x).Select(g => ( g.Key, Pocet: g
 //PrintListGenericky<(char, int, int)>(agg);
 
 string kniha1 = "alice.txt";
+string kniha2 = "holmes.txt";
+string kniha3 = "rur.txt";
 
-Dictionary<string, int> kniha = AnalyzatorTextu.AnalyzovatText(kniha1);
+Dictionary<string, int> kniha1Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
+Tisk(kniha1, kniha1Ana);
 
-Tisk(kniha1, kniha);
+Dictionary<string, int> kniha2Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
+Tisk(kniha2, kniha2Ana);
+
+Dictionary<string, int> kniha3Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
+Tisk(kniha3, kniha3Ana);
 
 void Tisk(string kniha1, Dictionary<string, int> kniha)
 {
-    Console.WriteLine($"KNIHA: {kniha}");
+    Console.WriteLine($"KNIHA: {kniha1}");
     foreach (var item in kniha)
     {
         Console.WriteLine($"Slovo: {item.Key}, výskyt: {item.Value}");
