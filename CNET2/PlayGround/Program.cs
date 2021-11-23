@@ -6,6 +6,8 @@ using PlayGround;
 var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
+Linq.Vyhodnotit();
+return;
 
 var vysledek = strings.Select( x => x.ToUpper());
 //Debug.WriteLine(vysledek);
@@ -55,6 +57,13 @@ Tisk(kniha2, kniha2Ana);
 
 Dictionary<string, int> kniha3Ana = AnalyzatorTextu.AnalyzovatText(kniha3);
 Tisk(kniha3, kniha3Ana);
+
+Dictionary<string, int> vysll = TextTools.Analyza.FreqAnalysis(kniha1);
+
+Dictionary<string, int> vysll2 = TextTools.Analyza.GetTopWords(10, vysll);
+
+
+Tisk("vvvvvvvvvvvvvvvvvvyyys", vysll2);
 
 void Tisk(string kniha1, Dictionary<string, int> kniha)
 {

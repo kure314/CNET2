@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayGround", "PlayGround\PlayGround.csproj", "{D80A42F3-5887-40A6-B298-DA319D526AF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextTools", "TextTools\TextTools.csproj", "{BD9CD02F-6652-4447-876C-942D619B0283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFtextGUI", "WPFtextGUI\WPFtextGUI.csproj", "{4D13FA99-A078-42AD-A63D-944616F57E47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{D80A42F3-5887-40A6-B298-DA319D526AF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D80A42F3-5887-40A6-B298-DA319D526AF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D80A42F3-5887-40A6-B298-DA319D526AF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD9CD02F-6652-4447-876C-942D619B0283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9CD02F-6652-4447-876C-942D619B0283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9CD02F-6652-4447-876C-942D619B0283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9CD02F-6652-4447-876C-942D619B0283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D13FA99-A078-42AD-A63D-944616F57E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D13FA99-A078-42AD-A63D-944616F57E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D13FA99-A078-42AD-A63D-944616F57E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D13FA99-A078-42AD-A63D-944616F57E47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
