@@ -20,9 +20,13 @@ namespace PlayGround
                 //var pokus333 = radky.Select(z => (Typ: z.Split(',')[0], Hodnota: z.Split(',')[1], X: Convert.ToInt32(z.Split(',')[7]),Y:Convert.ToInt32(z.Split(',')[8]))).Where(k => k.Typ == "I" && k.Hodnota == "7").FirstOrDefault();
 
                 // toto je o trochu lepší, ale není zaručeno, že prvky [7] a [8] existují
-                var pok444 = radky.Select(x => x.Split(',')).Where(g => g[0] == "I" && g[1] == "7" ).FirstOrDefault();
-
-
+                var pok444 = radky.Select(x => x.Split(',')).Where(g => g[0] == "I" && g[1] == "7" && g.Length>=8 ).Select(f=> (Sire:f[7],Vyska:f[8])).FirstOrDefault();
+                if (pok444.Sire == null || pok444.Vyska==null) throw new Exception("Nenalezena definice pro velikost tisku.");
+                if (char.IsDigit(pok444.Sire,0))
+                {
+                    Console.WriteLine("je digit");
+                }
+                return;
                 //radky.Split // nejde napsat
                 //if (pok333 == null) throw new Exception("Nejsou data");
                 var ii = radky.Select(z => z).Where(x => x.Split(',')[0] == "I" && x.Split(',')[1] == "7").FirstOrDefault();

@@ -58,12 +58,12 @@ Tisk(kniha2, kniha2Ana);
 Dictionary<string, int> kniha3Ana = AnalyzatorTextu.AnalyzovatText(kniha3);
 Tisk(kniha3, kniha3Ana);
 
-Dictionary<string, int> vysll = TextTools.Analyza.FreqAnalysis(kniha1);
+//Dictionary<string, int> vysll =  TextTools.Analyza.FreqAnalysis(kniha1);
 
-Dictionary<string, int> vysll2 = TextTools.Analyza.GetTopWords(10, vysll);
+//Dictionary<string, int> vysll2 = TextTools.Analyza.GetTopWords(10, vysll);
 
 
-Tisk("vvvvvvvvvvvvvvvvvvyyys", vysll2);
+//Tisk("vvvvvvvvvvvvvvvvvvyyys", vysll2);
 
 void Tisk(string kniha1, Dictionary<string, int> kniha)
 {

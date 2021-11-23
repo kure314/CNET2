@@ -3,10 +3,26 @@
     public class Analyza
     {
 
-        public static Dictionary<string, int> FreqAnalysis(string file)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file">Cesta k souboru</param>
+        /// <param name="splitBy">Podle čeho rozdělit </param>
+        /// <returns></returns>
+        /// 
+        public static async Task<Dictionary<string, int>> FreqAnalysisFromFileAsync(string file, string splitby = " ")
+        {
+            var content = await File.ReadAllTextAsync(file);
+            return FreqAnalysisFromString(content, splitby);
+        }
+        public static Dictionary<string, int> FreqAnalysisFromFile(string file, string splitby = " ")
         {
             var content = File.ReadAllText(file);
-            var words = content.Split(' ');
+            return FreqAnalysisFromString(content);
+        }
+        public static Dictionary<string, int> FreqAnalysisFromString(string content, string splitby = " ")
+        {
+            var words = content.Split(splitby);
 
             Dictionary<string, int> dict = new();
 
@@ -17,7 +33,7 @@
 
                 if (dict.ContainsKey(word))
                 {
-                    dict[word]++;
+                    dict[word] = dict[word] + 1;
                 }
                 else
                 {
