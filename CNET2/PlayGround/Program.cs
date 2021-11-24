@@ -4,20 +4,59 @@ using PlayGround;
 
 //Tasky();
 
-HttpClient httpClient = new HttpClient();
+Ukol3denAnalyzaKnihyzWebu();
 
-var res = await httpClient.GetAsync("https://google.com");
-if(res.StatusCode == System.Net.HttpStatusCode.NotFound)
+static async void Ukol3denAnalyzaKnihyzWebu()
 {
-    return;
-}
 
-if (res.IsSuccessStatusCode)
+
+    List<string> knihyWebu = new List<string>()
 {
-    string conte = res.Content.ReadAsStringAsync().Result; // toto je synchronně
+ @"https://www.gutenberg.org/cache/epub/2036/pg2036.txt"
+,@"https://www.gutenberg.org/files/16749/16749-0.txt"
+,@"https://www.gutenberg.org/cache/epub/19694/pg19694.txt"
+};
+
+    //if (res.IsSuccessStatusCode)
+    //{
+    //    string conte = res.Content.ReadAsStringAsync().Result;
+    //}
+
+    // HttpClient httpClient = new HttpClient();
+
+    //var res = await httpClient.GetAsync("https://google.com");
+    //if(res.StatusCode == System.Net.HttpStatusCode.NotFound)
+    //{
+    //    return;
+    //}
+
+    List<string> textyKnih = new List<string>();
+    foreach (string item in knihyWebu)
+    {
+        HttpClient httpClient = new HttpClient();
+        var res = await httpClient.GetStringAsync(item);
+
+        textyKnih.Add(res);
+    }
+
+    Console.WriteLine(" knihy načteny");
+
+  
+
+
+    foreach (string st in textyKnih)
+    {
+        Task.Run(() =>
+        {
+            var gg = TextTools.Analyza.FreqAnalysisFromString(st, " ");
+            var vys = TextTools.Analyza.GetTopWords(10, gg);
+            Tisk("", vys);
+        }
+        );
+    }
+
 
 }
-
 
 
 static void Tasky()
@@ -124,7 +163,7 @@ static void Tasky()
 
 //Tisk("vvvvvvvvvvvvvvvvvvyyys", vysll2);
 
-void Tisk(string kniha1, Dictionary<string, int> kniha)
+static void Tisk(string kniha1, Dictionary<string, int> kniha)
 {
     Console.WriteLine($"KNIHA: {kniha1}");
     foreach (var item in kniha)
