@@ -9,9 +9,9 @@ using PlayGround;
 //var res = await httpClient.GetAsync("https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
 //Console.WriteLine(res);
 
-Ukol3denAnalyzaKnihyzWebu();
+await Ukol3denAnalyzaKnihyzWebu();
 
-static async void Ukol3denAnalyzaKnihyzWebu()
+static async Task Ukol3denAnalyzaKnihyzWebu()
 {
 
 
@@ -35,25 +35,14 @@ static async void Ukol3denAnalyzaKnihyzWebu()
     //    return;
     //}
 
-    List<string> textyKnih = new List<string>();
+    Dictionary<string, string> textyKnih = new Dictionary<string, string>();
+    
 
     foreach (string item in knihyWebu)
     {
-
-        HttpClient httpClient2 = new HttpClient();
-
-        var res2 = await httpClient2.GetAsync("https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
-        Console.WriteLine(res2);
-
         HttpClient httpClient = new HttpClient();
-
-        var res = await httpClient.GetAsync(item);
-        Console.WriteLine(res);
-        if (res.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-
-            textyKnih.Add(res.Content.ToString());
-        }
+        var res = await httpClient.GetStringAsync(item);
+        textyKnih.Add(item,  res );
     }
 
     Console.WriteLine(" knihy načteny");
@@ -61,13 +50,13 @@ static async void Ukol3denAnalyzaKnihyzWebu()
 
     List<Task> tasks = new List<Task>();
 
-    foreach (string st in textyKnih)
+    foreach (var st in textyKnih)
     {
        var tt = Task.Run(() =>
         {
-            var gg = TextTools.Analyza.FreqAnalysisFromString(st, " ");
+            var gg = TextTools.Analyza.FreqAnalysisFromString(st.Value, " ");
             var vys = TextTools.Analyza.GetTopWords(10, gg);
-            Tisk("", vys);
+            Tisk(st.Key, vys);
         }
         );
         tasks.Add(tt);
