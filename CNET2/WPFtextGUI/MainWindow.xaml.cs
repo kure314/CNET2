@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -126,19 +127,75 @@ namespace WPFtextGUI
 
             //txbInfo.Text += fi.Name + Environment.NewLine;
             txbInfo.Text = "";
-            foreach (var kv in top10) txbInfo.Text += $"{kv.Key}: {kv.Value}{Environment.NewLine}";
+            foreach (var kv in top10)
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Value}{Environment.NewLine}";
+            }
             stopwatch.Stop();
             txt_debug.Text = $"trvání {stopwatch.Elapsed}";
-        }
 
-        private void btnStatsAllParallel_Click(object sender, RoutedEventArgs e)
+            Data.Data.Results.Add(new Model.StatsResult() { Source = "file", Top10Words = top10 });
+        }
+        /*
+        private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
+            txbInfo.Text = txbDebugInfo.Text = "";
+            Mouse.OverrideCursor = Cursors.Wait;
             Stopwatch stopwatch = new();
             stopwatch.Start();
 
+            var files = GetBigFiles();
+
+            foreach (var file in files)
+            {
+                var wordsstats = await TextTools.TextTools.FreqAnalysisFromFileAsync(file, Environment.NewLine);
+                var top10 = TextTools.TextTools.GetTopWords(10, wordsstats);
+
+                var fi = new FileInfo(file);
+                txbInfo.Text += fi.Name + Environment.NewLine;
+                foreach (var kv in top10)
+                {
+                    txbInfo.Text += $"{kv.Key}: {kv.Value} {Environment.NewLine}";
+                }
+                txbInfo.Text += Environment.NewLine;
+                txbDebugInfo.Text += stopwatch.ElapsedMilliseconds + Environment.NewLine;
+
+                Data.Data.Results.Add(new StatsResult() { Source = file, Top10Words = top10 });
+
+                progress1.Value += 100.0 / files.Count();
+            }
+
+            stopwatch.Stop();
+            txbDebugInfo.Text = "elapsed ms: " + stopwatch.ElapsedMilliseconds;
+            Mouse.OverrideCursor = null;
+        }
+        */
+        private void btnStatsAllParallel_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            Stopwatch stopwatch = new();
+            stopwatch.Start();
+
+            ConcurrentDictionary<string, int> dict =new ConcurrentDictionary<string, int>();
+
+            var files = getBigFiles();
+
+            Parallel.ForEach(files, file =>
+            {
+                foreach(var word in File.ReadAllLines(file))
+                {
+                    dict.AddOrUpdate(word, 1, (key, oldValue) => oldValue + 1);
+                }
+            });
+
+            foreach (var kv in dict.OrderByDescending(x => x.Value).Take(10))
+            {
+                txbInfo.Text += $"{kv.Key}: {kv.Value}{Environment.NewLine}";
+            }
 
             stopwatch.Stop();
             txt_debug.Text = $"Trvání: {stopwatch.Elapsed}";
+            Mouse.OverrideCursor=null;
         }
     }
 
