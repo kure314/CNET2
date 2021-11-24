@@ -2,28 +2,87 @@
 using System.Diagnostics;
 using PlayGround;
 
-//Console.WriteLine("Hello, World!");
-var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
-var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+//Tasky();
 
-Linq.Vyhodnotit();
-return;
+HttpClient httpClient = new HttpClient();
 
-var vysledek = strings.Select( x => x.ToUpper());
-//Debug.WriteLine(vysledek);
-
-//PrintList(vysledek.ToList());
-bool isOnlyEvenNumber = numbers.All(x => x % 2 == 0);
-//Console.WriteLine($"Jsou všechna čísla sudá? {isOnlyEvenNumber}");
-
-var slova = numbers.Select(x => strings[x]);
-
-//PrintList(slova.ToList()); 
-
-foreach (var item in numbers)
+var res = await httpClient.GetAsync("https://google.com");
+if(res.StatusCode == System.Net.HttpStatusCode.NotFound)
 {
-   // Console.WriteLine(strings[item]);
+    return;
 }
+
+if (res.IsSuccessStatusCode)
+{
+    string conte = res.Content.ReadAsStringAsync().Result; // toto je synchronně
+
+}
+
+
+
+static void Tasky()
+{
+    string cestaSouboru = @"C:\Programovani\bigfiles\words01.txt";
+    string cestaSouboru2 = @"C:\Programovani\bigfiles\words09.txt";
+
+    var task1 = Task.Run(() => {
+        TextTools.Analyza.FreqAnalysisFromFile(cestaSouboru, Environment.NewLine);
+        Console.WriteLine("Doběhl Task 1");
+    });
+
+
+
+    var task2 = Task<Dictionary<string, int>>.Run(() => {
+        var kk = TextTools.Analyza.FreqAnalysisFromFile(cestaSouboru2, Environment.NewLine);
+        return TextTools.Analyza.GetTopWords(10, kk);
+
+    });
+
+
+    //Task.WaitAny(task1, task2);
+
+    Task.WhenAll(task1, task2);
+    //var kompozitni = Task.WhenAll(task1, task2);
+
+    //kompozitni.Wait();
+
+    Dictionary<string, int> vys = task2.Result;
+
+    //Tisk("Kniha z tasku 2", vys);
+
+
+    Console.WriteLine("Program skončil");
+
+}
+
+
+
+
+
+
+
+////Console.WriteLine("Hello, World!");
+//var numbers = new[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+//var strings = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+
+//Linq.Vyhodnotit();
+//return;
+
+//var vysledek = strings.Select( x => x.ToUpper());
+////Debug.WriteLine(vysledek);
+
+////PrintList(vysledek.ToList());
+//bool isOnlyEvenNumber = numbers.All(x => x % 2 == 0);
+////Console.WriteLine($"Jsou všechna čísla sudá? {isOnlyEvenNumber}");
+
+//var slova = numbers.Select(x => strings[x]);
+
+////PrintList(slova.ToList()); 
+
+//foreach (var item in numbers)
+//{
+//   // Console.WriteLine(strings[item]);
+//}
 
 /// <summary>
 /// /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,29 +93,29 @@ foreach (var item in numbers)
 // úkol č. 5 ------------------------- 555555555555555555555555555555555
 
 
-var listHodnotUpperLower = strings.Select(x => new UpperLowerString(x))
-                                    .Select(xy => $"upper: {xy.UpperCase}, lower: {xy.LowerCase}");
+//var listHodnotUpperLower = strings.Select(x => new UpperLowerString(x))
+//                                    .Select(xy => $"upper: {xy.UpperCase}, lower: {xy.LowerCase}");
 
-var res = strings.Select(slovo =>(slovo.ToUpper(), slovo.ToLower()));
+//var res = strings.Select(slovo =>(slovo.ToUpper(), slovo.ToLower()));
 
-//PrintListGenericky<(string, string)>(res);
+////PrintListGenericky<(string, string)>(res);
 
-/// úkol č. 6 ------------------------- 666666666666666666666666666666666666
-var agg = string.Join("", strings).GroupBy(x => x).Select(g => ( g.Key, Pocet: g.Count(), Znaky: g.Count() )).OrderByDescending(g => g.Pocet);
-//PrintListGenericky<(char, int, int)>(agg);
+///// úkol č. 6 ------------------------- 666666666666666666666666666666666666
+//var agg = string.Join("", strings).GroupBy(x => x).Select(g => ( g.Key, Pocet: g.Count(), Znaky: g.Count() )).OrderByDescending(g => g.Pocet);
+////PrintListGenericky<(char, int, int)>(agg);
 
-string kniha1 = "alice.txt";
-string kniha2 = "holmes.txt";
-string kniha3 = "rur.txt";
+//string kniha1 = "alice.txt";
+//string kniha2 = "holmes.txt";
+//string kniha3 = "rur.txt";
 
-Dictionary<string, int> kniha1Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
-Tisk(kniha1, kniha1Ana);
+//Dictionary<string, int> kniha1Ana = AnalyzatorTextu.AnalyzovatText(kniha1);
+//Tisk(kniha1, kniha1Ana);
 
-Dictionary<string, int> kniha2Ana = AnalyzatorTextu.AnalyzovatText(kniha2);
-Tisk(kniha2, kniha2Ana);
+//Dictionary<string, int> kniha2Ana = AnalyzatorTextu.AnalyzovatText(kniha2);
+//Tisk(kniha2, kniha2Ana);
 
-Dictionary<string, int> kniha3Ana = AnalyzatorTextu.AnalyzovatText(kniha3);
-Tisk(kniha3, kniha3Ana);
+//Dictionary<string, int> kniha3Ana = AnalyzatorTextu.AnalyzovatText(kniha3);
+//Tisk(kniha3, kniha3Ana);
 
 //Dictionary<string, int> vysll =  TextTools.Analyza.FreqAnalysis(kniha1);
 
