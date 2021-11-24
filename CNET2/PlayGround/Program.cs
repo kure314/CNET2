@@ -4,6 +4,11 @@ using PlayGround;
 
 //Tasky();
 
+//HttpClient httpClient = new HttpClient();
+
+//var res = await httpClient.GetAsync("https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
+//Console.WriteLine(res);
+
 Ukol3denAnalyzaKnihyzWebu();
 
 static async void Ukol3denAnalyzaKnihyzWebu()
@@ -12,9 +17,9 @@ static async void Ukol3denAnalyzaKnihyzWebu()
 
     List<string> knihyWebu = new List<string>()
 {
- @"https://www.gutenberg.org/cache/epub/2036/pg2036.txt"
-,@"https://www.gutenberg.org/files/16749/16749-0.txt"
-,@"https://www.gutenberg.org/cache/epub/19694/pg19694.txt"
+ "https://www.gutenberg.org/cache/epub/2036/pg2036.txt"
+,"https://www.gutenberg.org/files/16749/16749-0.txt"
+,"https://www.gutenberg.org/cache/epub/19694/pg19694.txt"
 };
 
     //if (res.IsSuccessStatusCode)
@@ -31,31 +36,45 @@ static async void Ukol3denAnalyzaKnihyzWebu()
     //}
 
     List<string> textyKnih = new List<string>();
+
     foreach (string item in knihyWebu)
     {
-        HttpClient httpClient = new HttpClient();
-        var res = await httpClient.GetStringAsync(item);
 
-        textyKnih.Add(res);
+        HttpClient httpClient2 = new HttpClient();
+
+        var res2 = await httpClient2.GetAsync("https://www.gutenberg.org/cache/epub/2036/pg2036.txt");
+        Console.WriteLine(res2);
+
+        HttpClient httpClient = new HttpClient();
+
+        var res = await httpClient.GetAsync(item);
+        Console.WriteLine(res);
+        if (res.StatusCode == System.Net.HttpStatusCode.OK)
+        {
+
+            textyKnih.Add(res.Content.ToString());
+        }
     }
 
     Console.WriteLine(" knihy načteny");
 
-  
 
+    List<Task> tasks = new List<Task>();
 
     foreach (string st in textyKnih)
     {
-        Task.Run(() =>
+       var tt = Task.Run(() =>
         {
             var gg = TextTools.Analyza.FreqAnalysisFromString(st, " ");
             var vys = TextTools.Analyza.GetTopWords(10, gg);
             Tisk("", vys);
         }
         );
+        tasks.Add(tt);
     }
 
-
+    Task.WaitAll(tasks.ToArray());
+    Console.WriteLine("Hotovo");
 }
 
 
