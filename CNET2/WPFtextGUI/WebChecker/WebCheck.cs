@@ -40,23 +40,24 @@ namespace WPFtextGUI.WebChecker
 
         }
 
-        public void Start()
+        public void Start(IProgress<string> progress)
         {
             Task.Run(() =>
             {
-                Checking();
+                Checking(progress);
             });
 
 
         }
-        private  void Checking()
+        private  void Checking(IProgress<string> progress)
         {
             while (true)
             {
+                System.Diagnostics.Debug.WriteLine("jsem Tu");
                 if (!(Webs.WebToCheck.ContainsKey(Url) && Webs.WebToCheck[Url] == true)) return;
 
 
-                if (Webs.WebToCheck[Url]==true)
+                if (Webs.WebToCheck[Url]==false)
                 {
                     return;
                 }
@@ -66,14 +67,17 @@ namespace WPFtextGUI.WebChecker
                     if (content.Contains(Term, StringComparison.OrdinalIgnoreCase))
                     {
                         Found = true;
+                        
                     }
+                    progress.Report($"{DateTime.Now.ToString("hh:mm")} Výsledek= { Found}{Environment.NewLine}");
                 }
                 catch(Exception e)
                 {
                     LastError = LastState = $"{DateTime.Now.ToString()} - ERROR: {e.Message}";
+                    progress.Report($"{DateTime.Now.ToString("hh:mm")} Výsledek skončil s chybou:{Environment.NewLine}{LastError}{Environment.NewLine}");
                 }
 
-                Task.Delay(5000).Wait();
+                Task.Delay(1000).Wait();
 
             }
         }

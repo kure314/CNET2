@@ -32,7 +32,17 @@ namespace WPFtextGUI.WebChecker
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             txtWebCheckInfo.Text = $"Spouštím hledání výrazu {webcheck.Term} na webu: {Environment.NewLine}{webcheck.Url}";
-            webcheck.Start();
+            
+
+            //co se má vykonat, když přijde message
+            IProgress<string> progress = new Progress<string>(message =>
+            {
+                txtWebCheckInfo.Text += message;
+            });
+
+            webcheck.Start(progress);
+
+            
         }
     }
 

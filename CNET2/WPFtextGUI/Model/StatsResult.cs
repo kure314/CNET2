@@ -11,6 +11,7 @@ namespace WPFtextGUI.Model
     /// </summary>
     public class StatsResult
     {
+        public int Id { get; set; }
         /// <summary>
         /// source of text for analysis
         /// </summary>
@@ -19,6 +20,13 @@ namespace WPFtextGUI.Model
         ///10 most common words in source
         /// </summary>
         public Dictionary<string, int> Top10Words { get; set; }
+
+        /// <summary>
+        /// Jak dlouho trvalo vytvořit analýzu
+        /// </summary>
+        public int ElapsedMilliseconds { get; set; }
+        public string SubmitedBy { get; set; }
+        public string Name { get; set; }
 
     }
 }

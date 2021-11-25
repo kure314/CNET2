@@ -40,7 +40,8 @@
               
                 FontSize="26" Click="btn_load2_Click" />
                 <Button Margin="222,25,10,28" RenderTransformOrigin="0.99,0.739" Content="Analýza paralelně" FontSize="18" Click="btnStatsAllParallel_Click"/>
-                
+                <Button Content="Uživatelská kontrolka" Click="Button_Click"/>
+
             </WrapPanel>
             <ProgressBar x:Name="progressBar" Margin="222,0,222,110" Grid.ColumnSpan="2" Height="18"    />
         </StackPanel>

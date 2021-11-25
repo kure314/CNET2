@@ -197,6 +197,30 @@ namespace WPFtextGUI
             txt_debug.Text = $"Trvání: {stopwatch.Elapsed}";
             Mouse.OverrideCursor=null;
         }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+            var d = DateTime.Now;
+            string url = @"https://www.gutenberg.org/cache/epub/2036/pg2036.txt";
+            var dict = await TextTools.Analyza.FreqAnalysisFromUrlAsync(url);
+            var top10= TextTools.Analyza.GetTopWords(10, dict);
+            Model.StatsResult result = new Model.StatsResult();
+            result.Top10Words = top10; ;
+            result.Source = url;
+            
+            stopwatch.Stop();
+            int delkaTrvani = (int)(DateTime.Now - d).TotalMilliseconds;
+            result.ElapsedMilliseconds = (int)stopwatch.ElapsedMilliseconds;
+            result.SubmitedBy = $"čas z rozdílu: {delkaTrvani}";
+            result.Name = "Neznámý";
+            Views.StatsResultWindow rw = new(result);
+            
+
+
+            rw.ShowDialog();
+        }
     }
 
 

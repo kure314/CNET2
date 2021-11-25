@@ -15,6 +15,30 @@
             var content = await File.ReadAllTextAsync(file);
             return FreqAnalysisFromString(content, splitby);
         }
+        public static async Task< Dictionary<string, int>> FreqAnalysisFromUrlAsync(string url, string splitby = " ")
+        {
+            using var client = new HttpClient();
+            try
+            {
+                //bud ze všeho udělat asynchronní metodu,
+                // nebo přidám .Result
+                string text = await client.GetStringAsync(url);
+                return FreqAnalysisFromString(text);
+            }
+            catch (Exception ex)
+            {
+                // vrátit prázdný slovník
+                // delegovat vyjímku pro konzumenta
+                //elmach knihovna - logování vyjímek
+                //throw ex;
+                throw new Exception($"Nepodařilo se připojit na {url}");
+            }
+            
+
+
+
+            
+        }
         public static Dictionary<string, int> FreqAnalysisFromFile(string file, string splitby = " ")
         {
             var content = File.ReadAllText(file);

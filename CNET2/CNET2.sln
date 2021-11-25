@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFtextGUI", "WPFtextGUI\WP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{E0C86F05-34DD-4276-8108-AF337A4585C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinAPI", "MinAPI\MinAPI.csproj", "{F82EA58A-9EC7-4550-AC3B-001EF53F134A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E0C86F05-34DD-4276-8108-AF337A4585C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0C86F05-34DD-4276-8108-AF337A4585C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0C86F05-34DD-4276-8108-AF337A4585C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F82EA58A-9EC7-4550-AC3B-001EF53F134A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F82EA58A-9EC7-4550-AC3B-001EF53F134A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F82EA58A-9EC7-4550-AC3B-001EF53F134A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F82EA58A-9EC7-4550-AC3B-001EF53F134A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
