@@ -1,3 +1,5 @@
+using WPFtextGUI.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,6 +23,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
+
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -34,11 +37,44 @@ app.MapGet("/hello", () => "Hello");
 //GET-> /stats/5
 //GET-> /stats/all
 
+app.MapPost("/stats", (StatsResult StatsResultPrijaty) =>
+ {
+     return "ok";
+ });
 
-//poslat statistiku
-app.MapPost("/stats")
+
+app.MapGet("/stats/{id}", (int id) => 
+{ 
+    WPFtextGUI.Model.StatsResult sr = new WPFtextGUI.Model.StatsResult();
+    sr.Id = id;
+    sr.Source = "dummy result";
+
+    return sr;  //vrátím výsledek
+});
+
+app.MapGet("/stats/all", () =>
+{
+    return GgetAllResults();
+});
 
 
+////poslat statistiku
+//app.MapPost("/stats", () =>
+
+//);
+
+app.Run();
+
+
+static List<StatsResult> GgetAllResults()
+{
+    return new List<StatsResult>()
+    {
+        new StatsResult(){Id=1, Source="dummy result 1"},
+        new StatsResult(){Id=2, Source="dummy result 2"},
+        new StatsResult(){Id=3, Source="dummy result 3"}
+    };
+}
 internal record PuvodniSablona() 
 {
 
@@ -56,7 +92,7 @@ internal record PuvodniSablona()
     //})
     //.WithName("GetWeatherForecast");
 }
-app.Run();
+
 
 internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
 {
