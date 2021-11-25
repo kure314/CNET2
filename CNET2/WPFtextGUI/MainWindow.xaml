@@ -9,15 +9,15 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="431*"/>
+            <ColumnDefinition Width="369*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="70*"/>
+            <RowDefinition Height="257*"/>
+            <RowDefinition Height="177*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Grid.Row="0">
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Grid.Row="0" Margin="0,0,0,134" Grid.RowSpan="2">
 
             <WrapPanel 
             Grid.ColumnSpan="2"
@@ -32,7 +32,7 @@
                 Height="32"
                 Click="btn_load_Click" 
                FontSize="26" />
-                
+
                 <Button x:Name="btn_load2" 
                 Content="Analýza sekvenčně" 
                 HorizontalAlignment="Right"  
@@ -44,21 +44,26 @@
 
             </WrapPanel>
             <ProgressBar x:Name="progressBar" Margin="222,0,222,110" Grid.ColumnSpan="2" Height="18"    />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Height="54" Width="795" RenderTransformOrigin="0.503,-0.229">
+                <Label VerticalAlignment="Center" FontSize="20">URL:</Label>
+                <TextBox Name="txtInputUrl" Width="300" />
+                <Button Name="btnShowAnalysisDetail" Content="Analyze"
+                        Grid.Row="0" FontSize="16"  Margin="5"
+                        Height="32" Click="btnShowAnalysisDetail_Click" />
+            </StackPanel>
         </StackPanel>
-        <ScrollViewer 
-            Grid.Row="1"
-            Grid.Column="0"
+        <ScrollViewer
+            Grid.Column="0" Margin="0,44,0,0" Grid.Row="1"
             >
             <TextBlock x:Name="txbInfo" 
                 TextWrapping="Wrap" RenderTransformOrigin="0,0"
-                Grid.Row="1" Background="#FFCEBCBC"
+                Grid.Row="1" Background="#FFCEBCBC" Height="147"
             />
         </ScrollViewer>
 
-        <ScrollViewer 
-            Grid.Row="1"
+        <ScrollViewer
             Grid.Column="1" 
-            Background="#FFB74343"
+            Background="#FFB74343" Margin="0,44,0,0" Grid.Row="1"
            >
             <TextBlock 
                 x:Name="txt_debug" 
@@ -66,10 +71,8 @@
                 Grid.Row="1"
                 Margin="0,0,0,0" 
                 TextWrapping="Wrap" 
-                Text="TextBlock" 
-                VerticalAlignment="Stretch" 
-                HorizontalAlignment="Stretch"
-                Background="#FFB5CACE" 
+                Text="TextBlock"
+                Background="#FFB5CACE" Height="152" 
              />
         </ScrollViewer>
         <!--

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,9 +31,27 @@ namespace WPFtextGUI.Views
             DataContext = result;
         }
 
-        private void btnShowName_Click(object sender, RoutedEventArgs e)
+        private async void btnShowName_Click(object sender, RoutedEventArgs e)
         {
-            
+            //using System.Net.WebClient webClient   
+            Model.StatsResult result = DataContext as Model.StatsResult;
+
+            string localHost = @"https://localhost:7223/";
+
+            using HttpClient httpClient = new();
+
+            httpClient.BaseAddress = new Uri(localHost);
+
+            var res= await httpClient.PostAsJsonAsync<Model.StatsResult>("/stats", result);
+
+            //var res = await httpClient.PostAsJsonAsync<Model.StatsResult>("/stats", result);
+
+            if (res.IsSuccessStatusCode)
+                this.Close();
+            else
+                MessageBox.Show($"Status code:{res.StatusCode}");
+
+    
         }
     }
 }

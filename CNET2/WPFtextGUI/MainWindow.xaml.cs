@@ -221,6 +221,11 @@ namespace WPFtextGUI
 
             rw.ShowDialog();
         }
+
+        private void btnShowAnalysisDetail_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 
